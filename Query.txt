@@ -1,0 +1,17 @@
+SELECT
+  objetiva_csv.matricula,
+  objetiva_csv.nome,
+  objetiva_csv.data_nascimento as dt_nasc,
+  CONCAT(DAY(data_nascimento), '/', MONTH(data_nascimento),'/', YEAR(data_nascimento)) as data_nascimento,
+  objetiva_csv.lingua_portuguesa,
+  objetiva_csv.conhecimentos_didaticos_pedagogicos,
+  objetiva_csv.legislacao,
+  objetiva_csv.conhecimentos_especificos,
+  objetiva_csv.nota AS nota_objetiva,
+  discursiva_csv.nota AS nota_discussiva,
+  titulo_csv.nota as nota_titulo,
+  objetiva_csv.nota + discursiva_csv.nota + titulo_csv.nota as nota_total
+FROM
+  objetiva_csv
+  INNER JOIN discursiva_csv ON discursiva_csv.inscricao = objetiva_csv.matricula
+  INNER JOIN titulo_csv ON titulo_csv.inscricao = objetiva_csv.matricula
